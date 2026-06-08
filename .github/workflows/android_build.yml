@@ -21,19 +21,36 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Grant Execute Permission for Gradlew
-      run: chmod +x gradlew
-
-    # 🌟 NEW STEP: Automatically creates the missing debug.keystore file
-    - name: Generate Dummy Debug Keystore
+    - name: Locate, Prepare, and Build Android App
       run: |
+        # 🔍 Dynamically search the entire repository for the gradlew script
+        GRADLEW_PATH=$(find . -name "gradlew" -print -quit)
+        
+        if [ -z "$GRADLEW_PATH" ]; then
+          echo "❌ ERROR: 'gradlew' script could not be found anywhere in this repository."
+          echo "Please ensure you have fully committed and pushed your Android Studio project files."
+          exit 1
+        fi
+        
+        # Extract the directory where the project actually lives
+        PROJECT_ROOT=$(dirname "$GRADLEW_PATH")
+        echo "✅ Found gradlew at: $GRADLEW_PATH"
+        echo "📂 Stepping inside directory: $PROJECT_ROOT"
+        cd "$PROJECT_ROOT"
+        
+        # Grant executable permissions to the wrapper dynamically
+        chmod +x gradlew
+        
+        # 🔑 Create the dummy debug keystore that your build.gradle is looking for
+        echo "🔑 Generating temporary debug keystore..."
         keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
-
-    - name: Build with Gradle
-      run: ./gradlew assembleDebug
+        
+        # 🚀 Compile the application
+        echo "🚀 Launching Gradle compilation..."
+        ./gradlew assembleDebug
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: Age-Calculator-Debug-APK
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: "**/build/outputs/apk/debug/*-debug.apk"
