@@ -1,0 +1,122 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Glowing accent back shadow ring -->
+    <path
+        android:pathData="M54,54m-28,0a28,28 0,1 1,56 0a28,28 0,1 1,-56 0"
+        android:fillColor="#00000000"
+        android:strokeWidth="3.5"
+        android:strokeAlpha="0.15">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="26"
+                android:startY="26"
+                android:endX="82"
+                android:endY="82"
+                android:type="linear">
+                <item android:color="#6366F1" android:offset="0.0" />
+                <item android:color="#00F2FE" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Glowing Outer Core Orbit Ring -->
+    <path
+        android:pathData="M54,54m-28,0a28,28 0,1 1,56 0a28,28 0,1 1,-56 0"
+        android:fillColor="#00000000"
+        android:strokeWidth="1.8">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="26"
+                android:startY="26"
+                android:endX="82"
+                android:endY="82"
+                android:type="linear">
+                <item android:color="#6366F1" android:offset="0.0" />
+                <item android:color="#00F2FE" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Outer hour markers / dots -->
+    <path android:fillColor="#FFFFFF" android:pathData="M54,21 A1.5,1.5 0,1,1 53.99,21 Z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M54,87 A1.5,1.5 0,1,1 53.99,87 Z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M21,54 A1.5,1.5 0,1,1 20.99,54 Z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M87,54 A1.5,1.5 0,1,1 86.99,54 Z" />
+
+    <!-- Stylized Modern Hourglass Graphic -->
+    <!-- Top & Bottom Flat Caps -->
+    <path
+        android:pathData="M38,34 L70,34"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="38"
+                android:startY="34"
+                android:endX="70"
+                android:endY="34"
+                android:type="linear">
+                <item android:color="#6366F1" android:offset="0.0" />
+                <item android:color="#4F46E5" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M38,74 L70,74"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="38"
+                android:startY="74"
+                android:endX="70"
+                android:endY="74"
+                android:type="linear">
+                <item android:color="#4F46E5" android:offset="0.0" />
+                <item android:color="#6366F1" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Core hourglass glass walls with curve -->
+    <path
+        android:pathData="M40,36 C42,48 51,51 51,54 C51,57 42,60 40,72 L68,72 C66,60 57,57 57,54 C57,51 66,48 68,36 Z"
+        android:fillColor="#151A30"
+        android:strokeWidth="1.8"
+        android:strokeLineJoin="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="40"
+                android:startY="36"
+                android:endX="68"
+                android:endY="72"
+                android:type="linear">
+                <item android:color="#6366F1" android:offset="0.0" />
+                <item android:color="#00F2FE" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Falling glowing sands / energy inside -->
+    <!-- Top accumulation -->
+    <path
+        android:pathData="M43,38 C44,45 64,45 65,38 Z"
+        android:fillColor="#00F2FE" />
+    <!-- Bottom accumulation -->
+    <path
+        android:pathData="M43,70 C48,65 60,65 65,70 Z"
+        android:fillColor="#6366F1" />
+    <!-- Central stream pixel -->
+    <path
+        android:pathData="M54,48 L54,64"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:dashWidth="2dp"
+        android:dashGap="3dp" />
+</vector>
