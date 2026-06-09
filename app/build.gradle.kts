@@ -22,10 +22,12 @@ android {
 
   signingConfigs {
     create("release") {
-      val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
-      storeFile = file(keystorePath)
-      storePassword = System.getenv("STORE_PASSWORD")
-      keyAlias = "upload"
+      // Fetch environment variables provided by the CI/CD environment
+      val keystorePath = System.getenv("BITRISE_SOURCE_DIR") ?: System.getenv("GITHUB_WORKSPACE") ?: ""
+      
+      storeFile = file("$keystorePath/release.keystore")
+      storePassword = System.getenv("KEYSTORE_PASSWORD")
+      keyAlias = System.getenv("KEY_ALIAS")
       keyPassword = System.getenv("KEY_PASSWORD")
     }
     create("debugConfig") {
@@ -38,10 +40,9 @@ android {
 
   buildTypes {
     release {
-      isCrunchPngs = false
-      isMinifyEnabled = false
-      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+      isMinifyEnabled = true
       signingConfig = signingConfigs.getByName("release")
+      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
     debug {
       signingConfig = signingConfigs.getByName("debugConfig")
