@@ -30,7 +30,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          validate-wrappers: false
+          gradle-version: 9.3.1
+          validate-wrappers: true
+
+      - name: Gradle Version Info
+        run: ./gradlew --version
 
       - name: Grant Execute Permission
         run: chmod +x gradlew
@@ -70,7 +74,11 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          validate-wrappers: false
+          gradle-version: 9.3.1
+          validate-wrappers: true
+
+      - name: Gradle Version Info
+        run: ./gradlew --version
 
       - name: Grant Execute Permission
         run: chmod +x gradlew
