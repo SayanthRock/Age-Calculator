@@ -108,6 +108,9 @@ import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ArrowBack
 
+import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.Calculate
+import com.example.ui.CalendarScreen
 import com.example.ui.theme.ThemeColors
 
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -180,10 +183,64 @@ class MainActivity : ComponentActivity() {
 
       MyApplicationTheme(darkTheme = isDarkTheme, primaryColor = selectedColor, amoled = isAmoledEnabled) {
         var showSplash by remember { mutableStateOf(true) }
+        var selectedTab by remember { mutableIntStateOf(0) }
 
         Scaffold(
           modifier = Modifier.fillMaxSize(),
-          containerColor = MaterialTheme.colorScheme.background
+          containerColor = MaterialTheme.colorScheme.background,
+          bottomBar = {
+            if (!showSplash) {
+                NavigationBar(
+                    containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f),
+                    contentColor = MaterialTheme.colorScheme.onSurface,
+                    tonalElevation = 8.dp
+                ) {
+                    NavigationBarItem(
+                        selected = selectedTab == 0,
+                        onClick = { selectedTab = 0 },
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.Calculate,
+                                contentDescription = "Age Calculator Screen"
+                            )
+                        },
+                        label = {
+                            Text(
+                                "Age Calculator",
+                                fontWeight = if (selectedTab == 0) FontWeight.Bold else FontWeight.Normal
+                            )
+                        },
+                        colors = NavigationBarItemDefaults.colors(
+                            selectedIconColor = selectedColor,
+                            selectedTextColor = selectedColor,
+                            indicatorColor = selectedColor.copy(alpha = 0.15f)
+                        )
+                    )
+
+                    NavigationBarItem(
+                        selected = selectedTab == 1,
+                        onClick = { selectedTab = 1 },
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.CalendarMonth,
+                                contentDescription = "Calendar Screen"
+                            )
+                        },
+                        label = {
+                            Text(
+                                "Calendar",
+                                fontWeight = if (selectedTab == 1) FontWeight.Bold else FontWeight.Normal
+                            )
+                        },
+                        colors = NavigationBarItemDefaults.colors(
+                            selectedIconColor = selectedColor,
+                            selectedTextColor = selectedColor,
+                            indicatorColor = selectedColor.copy(alpha = 0.15f)
+                        )
+                    )
+                }
+            }
+          }
         ) { innerPadding ->
           Box(
             modifier = Modifier
@@ -205,7 +262,16 @@ class MainActivity : ComponentActivity() {
                         onLoadingComplete = { showSplash = false }
                     )
                 } else {
-                    AgeCalculatorScreen(
+                    AnimatedContent(
+                        targetState = selectedTab,
+                        transitionSpec = {
+                            (fadeIn(animationSpec = tween(350)) + slideInVertically { height -> height / 20 }) togetherWith
+                            (fadeOut(animationSpec = tween(250)) + slideOutVertically { height -> -height / 20 })
+                        },
+                        label = "MainTabs"
+                    ) { targetTab ->
+                        when (targetTab) {
+                            0 -> AgeCalculatorScreen(
                         isDarkTheme = isDarkTheme,
                         themeModeState = themeModeState,
                         onThemeModeChanged = { mode ->
